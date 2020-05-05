@@ -1,0 +1,16 @@
+rails new groceries -T -d postgresql
+bundle
+rails generate rspec:install
+Add gem 'rspec-rails' to Gemfile
+bundle
+rails generate rspec:install
+rails generate rspec:install
+rails g scaffold ShopList name:string active:boolean comment:text
+rails g scaffold Product name:string comment:text
+rails g migration CreateJoinTableShopListProduct shop_list product
+rake db:create
+rake db:migrate
+rake db:seed
+git init
+
+rails g controller home

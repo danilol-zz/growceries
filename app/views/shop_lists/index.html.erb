@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Shop Lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Active</th>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shop_lists.each do |shop_list| %>
+      <tr>
+        <td><%= shop_list.name %></td>
+        <td><%= shop_list.active %></td>
+        <td><%= shop_list.comment %></td>
+        <td><%= link_to 'Show', shop_list %></td>
+        <td><%= link_to 'Edit', edit_shop_list_path(shop_list) %></td>
+        <td><%= link_to 'Destroy', shop_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shop List', new_shop_list_path %>

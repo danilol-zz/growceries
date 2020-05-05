@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shop_list.name %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @shop_list.active %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @shop_list.comment %>
+</p>
+
+<%= link_to 'Edit', edit_shop_list_path(@shop_list) %> |
+<%= link_to 'Back', shop_lists_path %>
