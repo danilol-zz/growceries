@@ -11,6 +11,9 @@ rails g migration CreateJoinTableShopListProduct shop_list product
 rake db:create
 rake db:migrate
 rake db:seed
-git init
-
 rails g controller home
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:danilol/growceries.git
+git push -u origin master

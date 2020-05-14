@@ -3345,6 +3345,14 @@ jest-worker@^25.4.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
+jquery@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
+
+js-autocomplete@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/js-autocomplete/-/js-autocomplete-1.0.4.tgz#be88231719a80e89724d0c20f778270c3c0b577d"
+
 js-base64@^2.1.8:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.2.tgz#313b6274dda718f714d00b3330bbae6e38e90209"

@@ -1,10 +1,16 @@
 class ShopListsController < ApplicationController
-  before_action :set_shop_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_shop_list, only: [:show, :edit, :update, :destroy, :detach_product, :attach_product]
 
   # GET /shop_lists
   # GET /shop_lists.json
   def index
     @shop_lists = ShopList.all
+  end
+
+  def home
+    @active_shop_list = ShopList.active.first
+    @inactive_shop_lists = ShopList.inactive.all
+    @products = Product.all.order(:name)
   end
 
   # GET /shop_lists/1
@@ -28,7 +34,7 @@ class ShopListsController < ApplicationController
 
     respond_to do |format|
       if @shop_list.save
-        format.html { redirect_to @shop_list, notice: 'Shop list was successfully created.' }
+        format.html { redirect_to @shop_list, notice: "Shop list was successfully created." }
         format.json { render :show, status: :created, location: @shop_list }
       else
         format.html { render :new }
@@ -42,7 +48,7 @@ class ShopListsController < ApplicationController
   def update
     respond_to do |format|
       if @shop_list.update(shop_list_params)
-        format.html { redirect_to @shop_list, notice: 'Shop list was successfully updated.' }
+        format.html { redirect_to @shop_list, notice: "Shop list was successfully updated." }
         format.json { render :show, status: :ok, location: @shop_list }
       else
         format.html { render :edit }
@@ -56,19 +62,39 @@ class ShopListsController < ApplicationController
   def destroy
     @shop_list.destroy
     respond_to do |format|
-      format.html { redirect_to shop_lists_url, notice: 'Shop list was successfully destroyed.' }
+      format.html { redirect_to shop_lists_url, notice: "Shop list was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_shop_list
-      @shop_list = ShopList.find(params[:id])
-    end
+  # PUT /shop_lists/2/detach_product?product_id=40
+  def detach_product
+    @shop_list.products.delete(shop_list_params[:product_id])
+    redirect_to root_path
+  end
 
-    # Only allow a list of trusted parameters through.
-    def shop_list_params
-      params.require(:shop_list).permit(:name, :active, :comment)
-    end
+  # PUT /shop_lists/2/detach_product?product_id=40
+  def attach_product
+    product = Product.find(shop_list_params[:product_id])
+    @shop_list.products << product
+    @shop_list.save
+    redirect_to root_path
+  end
+
+  def autocomplete
+    results = Product.where("lower(name) ILIKE ?", params[:q] + "%").order(:name)
+    render json: results
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_shop_list
+    @shop_list = ShopList.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def shop_list_params
+    params.require(:shop_list).permit(:name, :active, :comment, :product_id, :search, product_ids: [])
+  end
 end
